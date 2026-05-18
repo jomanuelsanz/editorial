@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Artículo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="#">Editorial</a>
+    <div class="navbar-nav">
+        <a class="nav-link" href="/web/revistas">Revistas</a>
+        <a class="nav-link active" href="/web/articulos">Artículos</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0" th:text="${articulo.titulo}"></h5>
+            <a th:href="@{/web/articulos/editar/{id}(id=${articulo.id})}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-pencil"></i> Editar
+            </a>
+        </div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Autor</dt>
+                <dd class="col-sm-9" th:text="${articulo.autor}"></dd>
+                <dt class="col-sm-3">Páginas</dt>
+                <dd class="col-sm-9" th:text="${articulo.numeroPaginas}"></dd>
+                <dt class="col-sm-3">Fecha publicación</dt>
+                <dd class="col-sm-9" th:text="${articulo.fechaPublicacion}"></dd>
+                <dt class="col-sm-3">Open Access</dt>
+                <dd class="col-sm-9">
+                    <span th:if="${articulo.openAccess}" class="badge bg-success">Sí</span>
+                    <span th:unless="${articulo.openAccess}" class="badge bg-secondary">No</span>
+                </dd>
+                <dt class="col-sm-3">Revista</dt>
+                <dd class="col-sm-9">
+                    <a th:if="${articulo.revista != null}"
+                       th:href="@{/web/revistas/{id}(id=${articulo.revista.id})}"
+                       th:text="${articulo.revista.nombre}"></a>
+                    <span th:unless="${articulo.revista != null}" class="text-muted">Sin revista</span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <a href="/web/articulos" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Revista</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="#">Editorial</a>
+    <div class="navbar-nav">
+        <a class="nav-link active" href="/web/revistas">Revistas</a>
+        <a class="nav-link" href="/web/articulos">Artículos</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0" th:text="${revista.id == null} ? 'Nueva Revista' : 'Editar Revista'"></h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="${revista.id == null} ? '/web/revistas/nueva' : '/web/revistas/editar/' + ${revista.id}"
+                          method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" name="nombre" class="form-control" th:value="${revista.nombre}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Temática</label>
+                            <input type="text" name="tematica" class="form-control" th:value="${revista.tematica}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Periodicidad</label>
+                            <input type="text" name="periodicidad" class="form-control" th:value="${revista.periodicidad}"
+                                   placeholder="mensual, trimestral, anual..."/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ISSN</label>
+                            <input type="text" name="issn" class="form-control" th:value="${revista.issn}"/>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="/web/revistas" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

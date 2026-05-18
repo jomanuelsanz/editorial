@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Revistas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="#">Editorial</a>
+    <div class="navbar-nav">
+        <a class="nav-link active" href="/web/revistas">Revistas</a>
+        <a class="nav-link" href="/web/articulos">Artículos</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3">Revistas</h1>
+        <a href="/web/revistas/nueva" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Nueva revista
+        </a>
+    </div>
+
+    <form method="get" action="/web/revistas" class="d-flex gap-2 mb-4">
+        <input type="text" name="nombre" class="form-control w-auto"
+               placeholder="Buscar por nombre..." th:value="${nombre}"/>
+        <button type="submit" class="btn btn-outline-secondary">
+            <i class="bi bi-search"></i> Buscar
+        </button>
+        <a href="/web/revistas" class="btn btn-outline-secondary">Limpiar</a>
+    </form>
+
+    <div class="card shadow-sm">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Temática</th>
+                    <th>Periodicidad</th>
+                    <th>ISSN</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="revista : ${revistas}">
+                    <td th:text="${revista.id}" class="text-muted"></td>
+                    <td class="fw-semibold" th:text="${revista.nombre}"></td>
+                    <td th:text="${revista.tematica}"></td>
+                    <td th:text="${revista.periodicidad}"></td>
+                    <td><code th:text="${revista.issn}"></code></td>
+                    <td>
+                        <a th:href="@{/web/revistas/{id}(id=${revista.id})}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a th:href="@{/web/revistas/editar/{id}(id=${revista.id})}" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form th:action="@{/web/revistas/borrar/{id}(id=${revista.id})}" method="post" style="display:inline">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('¿Seguro que quieres borrar esta revista?')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(revistas)}">
+                    <td colspan="6" class="text-center text-muted py-4">No hay revistas registradas</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

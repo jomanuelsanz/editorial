@@ -61,4 +61,10 @@ public class ArticuloRestControllerJMS {
             return ResponseEntity.ok().<Void>build();
         }).orElse(ResponseEntity.notFound().build());
     }
+
+    // GET /api/articulos/contar?revistaId=1&anio=2024
+    @GetMapping("/contar")
+    public ResponseEntity<Long> contar(@RequestParam Long revistaId, @RequestParam int anio) {
+    return ResponseEntity.ok(articuloService.contarPorRevistaYAnio(revistaId, anio));
+}
 }

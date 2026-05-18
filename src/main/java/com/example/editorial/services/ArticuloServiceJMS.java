@@ -56,4 +56,10 @@ public class ArticuloServiceJMS {
         LocalDate fin = LocalDate.of(anio, 12, 31);
         return articuloRepository.findByFechaPublicacionBetween(inicio, fin);
     }
+
+    // Contar artículos de una revista en un año
+    public Long contarPorRevistaYAnio(Long revistaId, int anio) {
+        return articuloRepository.contarPorRevistaYAnio(revistaId, anio);
+    }
+    
 }
